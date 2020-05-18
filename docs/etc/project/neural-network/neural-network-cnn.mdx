@@ -1,0 +1,64 @@
+---
+id: neural-network-cnn
+title: Neural Network CNN(Convolution)
+sidebar_label: CNN(Convolution)
+description: Neural Network CNN(Convolution)
+keywords:
+  - Neural Network
+  - Convolution
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+<link rel="stylesheet" href={useBaseUrl("katex/katex.min.css")} />
+
+# Convolution
+
+$$
+K, K' \isin \R^{M \times N} \quad K(m, n) = K'(M-1-m, N-1-n)
+$$
+
+$$
+\begin{aligned}
+( I * K )_{ij}
+&= \sum_m \sum_n {I(i+m, j+n)K(M-1-m, N-1-n)} \\
+&= \sum_m \sum_n {I(i+m, j+n)K'(m, n)} &= (I \otimes K')_{ij}
+\end{aligned}
+$$
+
+:::info
+In the CNN description, most of the picture representing convolution seem to the cross-correlation using $K'$.
+:::
+
+## Kernel example
+
+$$
+K = \begin{bmatrix}1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9\end{bmatrix} \quad
+K' = \begin{bmatrix}9 & 8 & 7 \\ 6 & 5 & 4 \\ 3 & 2 & 1\end{bmatrix}
+$$
+
+# CNN
+
+$$
+A^l = A^{l-1} * W^l + B^l
+$$
+
+$$
+a^l_{i,j} = \sum_m \sum_n{a^{l-1}_{i+m,j+n} (\omega')^l_{m,n} + b^l_{i,j}}
+$$
+
+$$
+\delta^l_{i,j} = \frac{\partial C}{\partial a^l_{i,j}}
+$$
+
+$$
+\frac{\partial C}{\partial \omega^l_{i,j}}
+= \sum_m \sum_n {
+  \frac{\partial C}{\partial a^l_{i+m,j+m}}
+  \frac{\partial a^l_{i+m,j+m}}{\partial \omega^l_{i,j}}}
+$$
+
+# Reference
+
+- [https://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/](https://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/)
+- [https://towardsdatascience.com/a-comprehensive-introduction-to-different-types-of-convolutions-in-deep-learning-669281e58215](https://towardsdatascience.com/a-comprehensive-introduction-to-different-types-of-convolutions-in-deep-learning-669281e58215)

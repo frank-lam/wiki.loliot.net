@@ -87,6 +87,7 @@ module.exports = {
       items: [
         "etc/project/neural-network/neural-network-basics",
         "etc/project/neural-network/neural-network-cpu-gpu-npu",
+        "etc/project/neural-network/neural-network-cnn",
       ]
     }
   ],
