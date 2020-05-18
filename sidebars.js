@@ -86,6 +86,7 @@ module.exports = {
       label: "Neural Network",
       items: [
         "etc/project/neural-network/neural-network-basics",
+        "etc/project/neural-network/neural-network-cpu-gpu-npu",
       ]
     }
   ],
