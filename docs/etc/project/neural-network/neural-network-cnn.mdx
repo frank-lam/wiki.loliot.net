@@ -12,6 +12,22 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 <link rel="stylesheet" href={useBaseUrl("katex/katex.min.css")} />
 
+<center>
+  <img
+    src={useBaseUrl(
+      "img/etc/project/neural-network/neural-network-cnn-example.png"
+    )}
+  />
+</center>
+
+$$
+z^l_{i,j} = \sum_m \sum_n{a^{l-1}_{i+m,j+n} (\omega')^l_{m,n} + b^l_{i,j}}
+$$
+
+$$
+A^l = \sigma (Z^l) = \sigma ( A^{l-1} * W^l + B^l )
+$$
+
 # Convolution
 
 $$
@@ -37,28 +53,55 @@ K = \begin{bmatrix}1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9\end{bmatrix} \quad
 K' = \begin{bmatrix}9 & 8 & 7 \\ 6 & 5 & 4 \\ 3 & 2 & 1\end{bmatrix}
 $$
 
-# CNN
+# Back-propagation
 
 $$
-A^l = A^{l-1} * W^l + B^l
-$$
-
-$$
-a^l_{i,j} = \sum_m \sum_n{a^{l-1}_{i+m,j+n} (\omega')^l_{m,n} + b^l_{i,j}}
+\delta^l_{i,j} \equiv \frac{\partial C}{\partial z^l_{i,j}}
 $$
 
 $$
-\delta^l_{i,j} = \frac{\partial C}{\partial a^l_{i,j}}
+\begin{aligned}
+\delta^l_{i,j} = \frac{\partial C}{\partial z^l_{i,j}}
+&= \sum_x \sum_y {
+  \frac { \partial C } { \partial z^{l+1}_{x,y} }
+  \frac { \partial z^{l+1}_{x,y} } { \partial z^l_{i,j} }
+  } \\
+&= \sum_x \sum_y {
+  \delta^{l+1}_{x,y} (\omega')^{l+1}_{i-x,j-y} \sigma' (z^l_{i,j})
+  } \\
+&= \sum_m \sum_n {
+  \delta^{l+1}_{i-m,j-n} (\omega')^{l+1}_{m,n} \sigma' (z^l_{i,j})
+  }
+\end{aligned}
 $$
 
 $$
-\frac{\partial C}{\partial \omega^l_{i,j}}
-= \sum_m \sum_n {
-  \frac{\partial C}{\partial a^l_{i+m,j+m}}
-  \frac{\partial a^l_{i+m,j+m}}{\partial \omega^l_{i,j}}}
+\begin{aligned}
+\frac {\partial C} {\partial (\omega')^l_{m,n}}
+&= \sum_i \sum_j {
+  \frac { \partial C } { \partial z^{l}_{i,j} }
+  \frac { \partial z^{l}_{i,j} } { \partial ( \omega' )^l_{m,n} }
+  } \\
+&= \sum_i \sum_j {
+  \delta^l_{i,j} a^{l-1}_{i+m, j+n}
+  }
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+\frac {\partial C} {\partial b^l_{i,j}}
+&= \sum_x \sum_y {
+  \frac { \partial C } { \partial z^{l}_{x,y} }
+  \frac { \partial z^{l}_{x,y} } { \partial b^l_{i,j} }
+  } \\
+& = \delta^l_{i,j}
+\end{aligned}
 $$
 
 # Reference
 
 - [https://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/](https://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/)
 - [https://towardsdatascience.com/a-comprehensive-introduction-to-different-types-of-convolutions-in-deep-learning-669281e58215](https://towardsdatascience.com/a-comprehensive-introduction-to-different-types-of-convolutions-in-deep-learning-669281e58215)
+- Gradient-Based Learning Applied to Document Recognition(LeNet 5)
+- [https://www.thelearningmachine.ai/cnn](https://www.thelearningmachine.ai/cnn)
