@@ -12,3 +12,18 @@ keywords:
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
 <link rel="stylesheet" href={useBaseUrl("katex/katex.min.css")} />
+
+The extended Kalman filter(EKF) is the nonlinear version of the Kalman filter.
+
+# Predict
+
+$$
+q^{k-1}_k \approx \begin{bmatrix}
+\dfrac {\omega_x \Delta t} {2} &
+\dfrac {\omega_y \Delta t} {2} &
+\dfrac {\omega_z \Delta t} {2} &
+1
+\end{bmatrix}^T
+$$
+
+# Update

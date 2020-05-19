@@ -118,7 +118,8 @@ module.exports = {
       type: "category",
       label: "Device tree",
       items: [
-        "linux/linux-kernel/device-tree/device-tree",
+        "linux/linux-kernel/device-tree/device-tree-basics",
+        "linux/linux-kernel/device-tree/device-tree-overlay",
       ],
     },
   ],
